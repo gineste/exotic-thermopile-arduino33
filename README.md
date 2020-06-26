@@ -27,8 +27,8 @@ Le bloc thermopile est composé des éléments suivants:
 - Laser de pointage 5mW (modèle pour arduino ANGEEK XF0085X5 650nm)
 - Connecteur micro-USB à l'arrière
 
-Le laser de pointage est monté dans le même axe vertical que la thermopile, 20mm plus bas, et est matérialisé par un clignotement du pointeur rouge. Il est recommandé d'indiquer un risque pour les yeux (laser classe IIIA).
-
+Les différents éléments sont assemblée par colle à pistolet ou soudure plomb dans le boitier grenouille d'Exotic. Le laser de pointage est monté dans le même axe vertical que la thermopile, 20mm plus bas, et est matérialisé par un clignotement du pointeur rouge. Il est recommandé d'indiquer un risque pour les yeux (laser classe IIIA).
+Le connecteur arrière remplace le connecteur natif de la carte Nano 33 IoT.
 
 ## Positionnement: Il n'y a pas de seuil de distance d'utilisation, seul la contrainte de largeur de champ prévaut. L'angle de champ est de 58° et donne donc, pour différentes distances, un champ en largeur de:
 
@@ -44,18 +44,29 @@ On voit donc qu'on peut éloigner la thermopile jusqu'à 35cm de sa cible, ensui
 
 ## Acquisition et script
 
+Pour verser le script sur la carte arduino, il faut se connecter au mini-usb arrière et on met à jour le firmware en ouvrant l'IDE Arduino, sélectionnant le port actif et la carte Nano 33 dans le menu. Arduino peut nécessiter une mise à jour pour télécharges les modules Nano 33. 
+
 L'acquisition des données de la thermopile se fait via le port série, et donc le script **serialObject.py** qui définit une classe permettant de faire communiquer nos objets en USB.
 
-La thermopile renvoie ses données soit à intervalle constant (exemple 1seconde) soit lorsqu'on envoie une commande `waitResponseWithData`. Les données sont sous forme de string comprenant deux valeurs de température avec un chiffre après la virgule, la seconde étant celle d'intérêt:
+La thermopile envoie une trame de données à intervalle constant. Les différentes phase de mesure sont:
+- création d'un sampler toutes les 400ms
+- récupération des données
+- allumage du laser en mode clignotement pendant 300ms au total)
+
+Les deux valeurs renvoyées dans le string sont à décomposer en:
 
 | Température | Explication                                           |
 | ----------- | ----------------------------------------------------- |
 | PTAT        | Température du thermocouple interne en degrés celsius |
 | THPI        | Température de l'objet distant en degrés celcius      |
 
-Le temps nécessaire pour la communication et la réception des données est inférieur à **20ms**. Chaque requete `waitresponsewithdata()` execute un `readline()` puis décode les bytes en deux temps: la première mesure correspond aux données PTAT, la seconde aux données THPI. L'envoi des données en mode push se fait toutes les 500ms, ce qui fait 1000ms pour les deux requêtes (PTAT et THPI). Ce temps peut être paramétré plus court (200ms). Toutefois, la classe `serialObject` définit un nouveau thread donc l'attente de la valeur se fait en parallèle des instructions suivantes du scriptprises de mesure de vision, par exemple. Il est donc plus efficace d'acquérir ce capteur en premier.
+On peut utiliser la ligne suivante pour splitter le string et récupérer les valeurs de température dans une liste:
 
-`response = self._serialport.readline().decode("utf-8")`
+`import re
+numericdata = re.findall("\d*\.\d+", rawdata)`
+
+On pourra utiliser la classe serialObject() définie dnas le repository soudureKM pour récupérer les données. 
+
 
 ## Qualité et robustesse de mesure
 
