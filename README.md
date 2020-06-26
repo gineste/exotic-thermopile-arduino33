@@ -62,9 +62,7 @@ Les deux valeurs renvoyées dans le string sont à décomposer en:
 
 On peut utiliser la ligne suivante pour splitter le string et récupérer les valeurs de température dans une liste:
 
-`import re
-
-numericdata = re.findall("\d*\.\d+", rawdata)`
+`numericdata = re.findall("\d*\.\d+", rawdata)`
 
 On pourra utiliser la classe serialObject() définie dnas le repository soudureKM pour récupérer les données. 
 
