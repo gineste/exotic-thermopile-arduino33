@@ -1,4 +1,3 @@
-Retour [HOME](home)
 
 # Module Thermopile
 
@@ -28,11 +27,6 @@ Le bloc thermopile est composé des éléments suivants:
 - Carte ARDUINO NANO 33 IOT
 - Laser de pointage 5mW (modèle pour arduino ANGEEK XF0085X5 650nm)
 - Connecteur micro-USB à l'arrière
-- Support Makerbeam sur aimants (voir la rubrique [fabrication banc de test](make-test-bench))
-
-![schema_global](uploads/d4da0f4be186ba0497074d76190d6d75/schema_global.png)
-
-![therm2](uploads/074da458c4bae2e61c84f2bc9a7d82ef/therm2.png)
 
 Le laser de pointage est monté dans le même axe vertical que la thermopile, 20mm plus bas, et est matérialisé par un clignotement du pointeur rouge. Il est recommandé d'indiquer un risque pour les yeux (laser classe IIIA).
 
@@ -47,7 +41,7 @@ Le laser de pointage est monté dans le même axe vertical que la thermopile, 20
 
 On voit donc qu'on peut éloigner la thermopile jusqu'à 35cm de sa cible, ensuite on débordera sur les côtés du KM et on mesurera alors également le support ou des objets avoisinants. On recommande donc de bien centrer la thermopile au dessus du KM, ou de la rapprocher. 
 
-![thermopile_photo](uploads/therm001/thermopile_photo.jpg)
+![image_device](therm3.png)
 
 ## Acquisition et script
 
