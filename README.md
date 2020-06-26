@@ -1,4 +1,3 @@
-
 # Module Thermopile
 
 ## Principe
@@ -9,11 +8,11 @@ Ce wiki traite de l'utilisation de la thermopile. Une thermopile est un disposit
 
 ## Spécifications
 
-Les thermopiles se différencient entre autres par leur champ de vue et leur gamme de température. Nous avons sélectionné un modèle à faible champ de vue et une gamme de températures ambiantes (0 à 85°C). La fiche technique du fabricant OMRON est ici: [fiche_technique_thermopile](uploads/1f22b6c685f7e3f1a7ca18b793097aff/fiche_technique_thermopile.pdf)
+Les thermopiles se différencient entre autres par leur champ de vue et leur gamme de température. Nous avons sélectionné un modèle à faible champ de vue et une gamme de températures ambiantes (0 à 85°C). 
 
 | Fabricant   | Texas Instruments           |
 | ----------- | --------------------------- |
-| Modèle      | **D6T-1A-01**               |
+| Modèle      | **OMRON D6T-1A-01**         |
 | Temp range  | -20°C à 80°C                |
 | angle 50%   | 58°                         |
 
