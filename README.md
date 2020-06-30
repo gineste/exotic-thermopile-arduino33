@@ -48,7 +48,7 @@ On voit donc qu'on peut éloigner la thermopile jusqu'à 35cm de sa cible, ensui
 
 Pour verser le script sur la carte arduino, il faut se connecter au mini-usb arrière et on met à jour le firmware en ouvrant l'IDE Arduino, sélectionnant le port actif et la carte Nano 33 dans le menu. Arduino peut nécessiter une mise à jour pour télécharges les modules Nano 33. 
 
-L'acquisition des données de la thermopile se fait via le port série, et donc le script **serialObject.py** qui définit une classe permettant de faire communiquer nos objets en USB.
+L'acquisition des données de la thermopile se fait via le port série, et donc le script **serialObject.py**[lien direct](https://gitlab.com/exoticsystems/michelin-pose-km/soudure-km/-/blob/master/serialObject.py) qui définit une classe permettant de faire communiquer nos objets en USB.
 
 La thermopile envoie une trame de données à intervalle constant. Les différentes phase de mesure sont:
 - création d'un sampler toutes les 400ms
