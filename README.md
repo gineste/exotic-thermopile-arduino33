@@ -30,7 +30,9 @@ Le bloc thermopile est composé des éléments suivants:
 Les différents éléments sont assemblée par colle à pistolet ou soudure plomb dans le boitier grenouille d'Exotic. Le laser de pointage est monté dans le même axe vertical que la thermopile, 20mm plus bas, et est matérialisé par un clignotement du pointeur rouge. Il est recommandé d'indiquer un risque pour les yeux (laser classe IIIA).
 Le connecteur arrière remplace le connecteur natif de la carte Nano 33 IoT.
 
-## Positionnement: Il n'y a pas de seuil de distance d'utilisation, seul la contrainte de largeur de champ prévaut. L'angle de champ est de 58° et donne donc, pour différentes distances, un champ en largeur de:
+## Positionnement: 
+
+Il n'y a pas de seuil de distance d'utilisation, seul la contrainte de largeur de champ prévaut. L'angle de champ est de 58° et donne donc, pour différentes distances, un champ en largeur de:
 
 | distance à la cible | largeur de perception pour 90% du flux |
 | ------------------- | -------------------------------------- |
