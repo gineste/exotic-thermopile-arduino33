@@ -24,6 +24,7 @@
 
 /* includes */
 #include <Wire.h>
+#include "esp_system.h"
 
 /* defines */
 #define D6T_ADDR 0x0A  // for I2C 7bit address
@@ -79,6 +80,10 @@
 #define samplingTime SAMPLE_TIME_0400MS //ms (Can select only, 40ms, 60ms, 100ms, 200ms, 400ms, 800ms, 1600ms, 3200ms)
 /****************************/
 
+/***** Watch dog  *****/
+#define WDG_TIMEOUT_MS  3000    /* timeout in ms */
+/****************************/
+
 uint8_t rbuf[N_READ];
 int16_t pix_data = 0;
 int16_t seqData[40] = {0};
@@ -86,6 +91,7 @@ bool  occuPix = 0;
 bool  occuPixFlag = false;
 uint8_t  resultOccupancy = 0;
 uint16_t  totalCount = 0;
+hw_timer_t *timer = NULL;   /* Watch dog timer */
 
 /** JUDGE_occupancy: judge occupancy*/
 bool judge_seatOccupancy(void) { 
@@ -166,6 +172,14 @@ int16_t conv8us_s16_le(uint8_t* buf, int n) {
     ret = buf[n];
     ret += buf[n + 1] << 8;
     return (int16_t)ret;   // and convert negative.
+}
+
+/**
+ * Watch dog callback
+ */
+void IRAM_ATTR resetModule() {
+  ets_printf("reboot\n");
+  esp_restart();
 }
 
 
@@ -261,7 +275,12 @@ void setup() {
     Wire.write(0x00);                  // D6T register
     Wire.write(0xE9);                  // D6T register
     Wire.endTransmission();            // I2C repeated start for read 
-  
+
+  /* Watch dog setup */
+  timer = timerBegin(0, 80, true);                  //timer 0, div 80
+  timerAttachInterrupt(timer, &resetModule, true);  //attach callback
+  timerAlarmWrite(timer, WDG_TIMEOUT_MS * 1000, false); //set time in us
+  timerAlarmEnable(timer);                          //enable interrupt
 }
 
 
@@ -271,6 +290,7 @@ void setup() {
  */
 void loop() {
     int i, j;
+    timerWrite(timer, 0); //reset timer (feed watchdog)
 
     memset(rbuf, 0, N_READ);
     // Wire buffers are enough to read D6T-16L data (33bytes) with
